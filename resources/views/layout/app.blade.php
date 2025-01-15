@@ -19,10 +19,12 @@ $users = Users::where('role')->get();
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
     
     <link rel="stylesheet" href="{{asset('assets/vendors/chartjs/Chart.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendors/simple-datatables/style.css')}}">
 
     <link rel="stylesheet" href="{{asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
     <link rel="shortcut icon" href="{{asset('logo1.jpg')}}" type="image/x-icon">
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -37,8 +39,8 @@ $users = Users::where('role')->get();
 
             <li class='sidebar-title'>Main Menu</li>
         
-            <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                <a href="{{url('/dashboard')}}" class='sidebar-link'>
                     <i data-feather="home" width="20"></i> 
                     <span>Dashboard</span>
                 </a>
@@ -161,18 +163,18 @@ $users = Users::where('role')->get();
 
             <li class='sidebar-title'>Main Menu</li>
         
-            <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                <a href="{{url('/dashboard')}}" class='sidebar-link'>
                     <i data-feather="home" width="20"></i> 
                     <span>Dashboard</span>
                 </a>
                 
             </li>
 
-            <li class="sidebar-item ">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item {{ request()->is('posyandu-balita*') ? 'active' : '' }}">
+                <a href="{{url('/posyandu-balita')}}" class='sidebar-link'>
                     <i data-feather="home" width="20"></i> 
-                    <span>Posyandu Balita</span>
+                    <span>Data Bayi/Balita</span>
                 </a>
                 
             </li>
@@ -246,8 +248,8 @@ $users = Users::where('role')->get();
 
             <li class='sidebar-title'>Main Menu</li>
         
-            <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }} ">
+                <a href="{{url('/dashboard')}}" class='sidebar-link'>
                     <i data-feather="home" width="20"></i> 
                     <span>Dashboard</span>
                 </a>
@@ -331,7 +333,9 @@ $users = Users::where('role')->get();
     <script src="{{asset('assets/vendors/chartjs/Chart.min.js')}}"></script>
     <script src="{{asset('assets/vendors/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/dashboard.js')}}"></script>
-
+    <script src="{{asset('assets/vendors/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="{{asset('assets/js/vendors.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
+    @yield('js')
 </body>
 </html>

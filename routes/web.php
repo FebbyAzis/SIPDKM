@@ -28,12 +28,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
     Route::get('/register-success', [RegisterController::class, 'register_success']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/data-barang', [BarangController::class, 'data_barang']);
     
     Route::get('/posyandu-balita', [PosyanduBalitaController::class, 'index']);
     Route::post('/tambah-balita', [PosyanduBalitaController::class, 'tambah_balita']);
-    Route::put('/edit-balita/{id}', [PosyanduBbalitaController::class, 'edit_balita']);
-    Route::delete('/hapus-balita/{id}', [PosyanduBbalitaController::class, 'hapus_balita']);
+    Route::put('/edit-balita/{id}', [PosyanduBalitaController::class, 'edit_balita']);
+    Route::delete('/hapus-balita/{id}', [PosyanduBalitaController::class, 'hapus_balita']);
 });
 
 

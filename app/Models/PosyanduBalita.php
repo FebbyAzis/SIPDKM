@@ -9,5 +9,5 @@ class PosyanduBalita extends Model
 {
     use HasFactory;
 
-    protected $table = 'py_balita';
+    protected $table = 'data_bayi_balita';
 }

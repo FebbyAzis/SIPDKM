@@ -17,16 +17,21 @@ class PosyanduBalitaController extends Controller
     public function tambah_balita(Request $request)
     {
         $save = new PosyanduBalita;
-        $save->nama = $request->nama; 
+        $save->nik_anak = $request->nik_anak; 
+        $save->no_kk = $request->no_kk; 
+        $save->nama_anak = $request->nama_anak; 
+        $save->nama_ibu = $request->nama_ibu; 
+        $save->nama_ayah = $request->nama_ayah; 
+        $save->anak_ke = $request->anak_ke; 
+        $save->jk = $request->jk; 
         $save->umur = $request->umur; 
         $save->ttl = $request->ttl; 
-        $save->nik_ank_ibu = $request->nik_ank_ibu; 
+        $save->berat_badan = $request->berat_badan; 
+        $save->panjang_badan = $request->panjang_badan; 
+        $save->lingkar_lengan = $request->lingkar_lengan; 
+        $save->lingkar_kepala = $request->lingkar_kepala; 
         $save->alamat = $request->alamat; 
-        $save->nama_ortu = $request->nama_ortu; 
-        $save->lngkr_lengan = $request->lngkr_lengan; 
-        $save->lngkr_kpl = $request->lngkr_kpl; 
-        $save->brt_bdn = $request->brt_bdn; 
-        $save->pnjng_bdn = $request->pnjng_bdn; 
+        $save->no_hp_ortu = $request->no_hp_ortu; 
      
         $save->save(); 
         return redirect()->back()->with('Success', 'Data berhasil ditambahkan!');
@@ -35,17 +40,22 @@ class PosyanduBalitaController extends Controller
     public function edit_balita(Request $request, $id)
     {
 
-        Posyandubalita::where('id', $id)->update([
-            'nama' => $request->nama,
+        PosyanduBalita::where('id', $id)->update([
+            'nik_anak' => $request->nik_anak,
+            'no_kk' => $request->no_kk,
+            'nama_anak' => $request->nama_anak,
+            'nama_ibu' => $request->nama_ibu,
+            'nama_ayah' => $request->nama_ayah,
+            'anak_ke' => $request->anak_ke,
+            'jk' => $request->jk,
             'umur' => $request->umur,
             'ttl' => $request->ttl,
-            'nik_ank_ibu' => $request->nik_ank_ibu,
+            'berat_badan' => $request->berat_badan,
+            'panjang_badan' => $request->panjang_badan,
+            'lingkar_lengan' => $request->lingkar_lengan,
+            'lingkar_kepala' => $request->lingkar_kepala,
             'alamat' => $request->alamat,
-            'nama_ortu' => $request->nama_ortu,
-            'lngkr_lengan' => $request->lngkr_lengan,
-            'lngkr_kpl' => $request->lngkr_kpl,
-            'brt_bdn' => $request->brt_bdn,
-            'pnjng_bdn' => $request->pnjng_bdn,
+            'no_hp_ortu' => $request->no_hp_ortu,
                        
         ]);
 
@@ -54,7 +64,7 @@ class PosyanduBalitaController extends Controller
     
     public function hapus_balita($id)
     {
-        $pyb = PosyanduBlita::where('id', $id)->delete();
+        $pyb = PosyanduBalita::where('id', $id)->delete();
         return redirect()->back()->with('Successss', 'Data berhasil dihapus!');
     }
 }
