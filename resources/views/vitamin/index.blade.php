@@ -5,12 +5,12 @@
         <div class="page-title">
           <div class="row">
             <div class="col-sm-6">
-              <h3>Data Bayi/Balita</h3>
-              <p class="text-subtitle text-muted">Anda dapat mengelola data bayi/balita pada halaman ini.</p>
+              <h3>Data Vitamin</h3>
+              <p class="text-subtitle text-muted">Anda dapat mengelola data vitamin bayi/balita pada halaman ini.</p>
             </div>
             <div class="col-sm-6 text-right">
               <button type="button" class="btn btn-outline-primary m-3" data-toggle="modal" data-target="#exampleModalLong">
-                <i data-feather="plus" width="20" class="mb-1"></i>&nbsp;Tambah Data Bayi/Balita
+                <i data-feather="plus" width="20" class="mb-1"></i>&nbsp;Tambah Data Vitamin
             </button>
             </div>
           </div>
@@ -52,50 +52,32 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Tanggal</th>
                                 <th>Nik Anak</th>
-                                <th>No KK</th>
                                 <th>Nama Anak</th>
-                                <th>Nama Ibu</th>
-                                <th>Nama Ayah</th>
-                                <th>Anak Ke</th>
-                                <th>Jenis Kelamin</th>
-                                <th>TTL</th>
                                 <th>Umur</th>
-                                <th>Berat Badan</th>
-                                <th>Panjang Badan</th>
-                                <th>Lingkar Lengan</th>
-                                <th>Lingkar Kepala</th>
-                                <th>Alamat</th>
-                                <th>No HP Ortu</th>
+                                <th>Jenis Vitamin</th>
+                               
                                 <th>Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pyb as $no => $item)
+                            @foreach ($vtmn as $no => $item)
                                 <tr>
                                     <td>{{ $no + 1 }}</td>
-                                    <td>{{ $item->nik_anak }}</td>
-                                    <td>{{ $item->no_kk }}</td>
-                                    <td>{{ $item->nama_anak }}</td>
-                                    <td>{{ $item->nama_ibu }}</td>
-                                    <td>{{ $item->nama_ayah }}</td>
-                                    <td>{{ $item->anak_ke }}</td>
-                                    <td>{{ $item->jk }}</td>
-                                    <td>{{date("d/M/Y", strtotime($item->ttl));}}</td>
-                                    <td>{{ $item->umur }} Bulan</td>
-                                    <td>{{ $item->berat_badan }} Kg</td>
-                                    <td>{{ $item->panjang_badan }} Cm</td>
-                                    <td>{{ $item->lingkar_lengan }} Cm</td>
-                                    <td>{{ $item->lingkar_kepala }} Cm</td>
-                                    <td>{{ $item->alamat }}</td>
-                                    <td>{{ $item->no_hp_ortu }}</td>
+                                    <td>{{date("d/M/Y", strtotime($item->tanggal));}}</td>
+                                    <td>{{ $item->data_bayi_balita->nik_anak }}</td>
+                                    <td>{{ $item->data_bayi_balita->nama_anak }}</td>
+                                    <td>{{ $item->data_bayi_balita->umur }} bln</td>
+                                    <td>{{ $item->jenis_vitamin }}</td>
+                                    
+                                    
                                     <td>
-                                      
-                                      <a href="{{url('detail-data-bayi-balita/'. $item->id)}}" class="btn btn-sm btn-success m-1"><i data-feather="eye" width="30" class="mb-1"></i></a>
-                                      <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
+                                     
+                                      {{-- <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
                                         <i data-feather="edit" width="30" class="mb-1"></i>
-                                      </button>
+                                      </button> --}}
                                       <button class="btn btn-sm btn-danger m-1" data-toggle="modal" data-target="#default{{$item->id}}">
                                         <i data-feather="trash" width="30" class="mb-1"></i>
                                       </button>
@@ -109,119 +91,81 @@
         </div>
     </div>
 
-  <form action="{{url('/tambah-balita')}}" method="POST">
-      @csrf
+  <form id="searchForm" action="{{url('/tambah-vitamin')}}" method="POST">
+    @csrf
       @method('POST')
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Form Tambah Data Bayi/Balita</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Form Tambah Data Vitamin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i data-feather="x"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                   <div class="row">
+                
                     <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="basicInput">Nik Anak</label>
-                        <input type="text" class="form-control" id="basicInput" name="nik_anak"
-                            placeholder="Masukan Nik Anak" required>
+                        <h5 class="text-center">Data Anak</h5>
+                        <fieldset class="form-group">
+                            <label for="basicInput">Nama Anak - Nama Ibu</label><br>
+                            <select class="form-select" id="id">
+                                <option>Masukan Nama Anak</option>
+                                @foreach ($py as $item)
+                                <option value="{{$item->id}}">{{$item->nama_anak}} - {{$item->nama_ibu}}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                        {{-- <fieldset class="form-group">
+                            <label for="basicInput">Nama Ibu</label>
+                            <select class="form-select" id="nama_ibu">
+                                <option>Masukan Nama Ibu</option>
+                                @foreach ($py as $item)
+                                <option>{{$item->nama_ibu}}</option>
+                                @endforeach
+                            </select>
+                        </fieldset> --}}
+                    <hr>
+                    <div id="result" style="margin-top: 20px; display: none;">
+                        <input type="hidden" name="data_bayi_balita_id" id="result_id"></p>
+                        <p><strong>Nik Anak :</strong><br><span id="result_nik_anak"></span></p>
+                        <p><strong>Nama Anak :</strong><br><span id="result_nama_anak"></span></p>
+                        <p><strong>Jenis Kelamin :</strong><br><span id="result_jk"></span></p>
+                        <p><strong>Tanggal Lahir :</strong><br><span id="result_tanggal"></span></p>
+                        
+                        <p><strong>Nama Ayah :</strong><br><span id="result_nama_ayah"></span></p>
+                        <p><strong>Nama Ibu :</strong><br><span id="result_nama_ibu"></span></p>
+                        <p><strong>Alamat :</strong><br><span id="result_alamat"></span></p>
+                      
                     </div>
-                    <div class="form-group">
-                        <label for="basicInput">No KK</label>
-                        <input type="text" class="form-control" id="basicInput" name="no_kk"
-                            placeholder="Masukan No KK" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Nama Anak</label>
-                        <input type="text" class="form-control" id="basicInput" name="nama_anak"
-                            placeholder="Masukan Nama Anak" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Nama Ibu</label>
-                        <input type="text" class="form-control" id="basicInput" name="nama_ibu"
-                            placeholder="Masukan Nama Ibu" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Nama Ayah</label>
-                        <input type="text" class="form-control" id="basicInput" name="nama_ayah"
-                            placeholder="Masukan Nama Ayah" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Anak Ke-</label>
-                        <input type="text" class="form-control" id="basicInput" name="anak_ke"
-                            placeholder="Masukan Anak Ke-" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="basicInput" class="mb-2">Jenis Kelamin</label>
-                      <div class="row">
-                          <div class="col-sm-6">
-                              <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="jk" value="Laki-laki"
-                                      id="flexRadioDefault1" required>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                      Laki-laki
-                                  </label>
-                              </div>
-                          </div>
-                          <div class="col-sm-6">
-                              <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="jk" value="Perempuan"
-                                      id="flexRadioDefault1" required>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                      Perempuan
-                                  </label>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <hr>
                   </div>
 
                     <div class="col-sm-6">
+                        <h5 class="text-center">Data Vitamin</h5>
                       <div class="form-group">
-                        <label for="basicInput">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tanggal_lahir" name="ttl" onchange="calculateAge()"
+                        <label for="basicInput">Tanggal</label>
+                        <input type="date" class="form-control" id="" name="tanggal" 
                             placeholder="Masukan Tanggal Lahir" required>
                     </div>
                     <div class="form-group">
                         <label for="basicInput">Umur (Dalam Bulan)</label>
-                        <input type="text" class="form-control" id="umur" name="umur"
+                        <input type="text" class="form-control" id="result_umur" name="umur"
                         placeholder="Otomatis Muncul" required readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="basicInput">Berat Badan (Kg)</label>
-                        <input type="text" class="form-control" id="basicInput" name="berat_badan"
-                            placeholder="Masukan Angka Saja" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Panjang Badan (Cm)</label>
-                        <input type="text" class="form-control" id="basicInput" name="panjang_badan"
-                            placeholder="Masukan Angka Saja" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Lingkar Lengan (Cm)</label>
-                        <input type="text" class="form-control" id="basicInput" name="lingkar_lengan"
-                            placeholder="Masukan Angka Saja" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Lingkar Kepala (Cm)</label>
-                        <input type="text" class="form-control" id="basicInput" name="lingkar_kepala"
-                            placeholder="Masukan Angka Saja" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">Alamat</label>
-                        <textarea type="text" class="form-control" id="basicInput" name="alamat"
-                            placeholder="Masukan Alamat" required> </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="basicInput">No HP Orang Tua</label>
-                        <input type="text" class="form-control" id="basicInput" name="no_hp_ortu"
-                            placeholder="Masukan No HP Orang Tua" required>
-                    </div>
+                    <strong>Noted*</strong>
+                    <p>Kapsul biru diberikan untuk bayi usia 6-11 bulan <br>
+                    Kapsul biru diberikan untuk balita usia 12-59 bulan</p>
+                    <fieldset class="form-group">
+                            <label for="basicInput">Jenis Vitamin</label>
+                            <select class="form-select" name="jenis_vitamin" id="" required>
+                                <option>Pilih Jenis Vitamin</option>
+                                <option value="Vitamin A Kapsul Biru">Vitamin A Kapsul Biru</option>
+                                <option value="Vitamin A Kapsul Merah">Vitamin A Kapsul Merah</option>
+                                
+                            </select>
+                        </fieldset>
                     </div>
                   </div>
                   <input type="hidden" name="posyandu_id" value="{{$users}}">
@@ -244,8 +188,8 @@
     </div>
   </form>
 
-  @foreach ($pyb as $item)
-<form action="{{url('hapus-balita/'. $item->id)}}" method="POST">
+  @foreach ($vtmn as $item)
+<form action="{{url('hapus-vitamin/'. $item->id)}}" method="POST">
     @csrf
     @method('DELETE')
     <div class="modal fade text-left" id="default{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
@@ -253,24 +197,24 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Hapus Data Bayi/Balita</h5>
+                    <h5 class="modal-title" id="myModalLabel1">Hapus Data Vitamin</h5>
                     <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
                         <i data-feather="x"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p>
-                    Apakah anda yakin ingin menghapus data bayi/balita <b>{{$item->nama_anak}}</b>?
+                    Apakah anda yakin ingin menghapus data vitamin bayi/balita <b>{{$item->data_bayi_balita->nama_anak}}</b>?
                     </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                         <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Tutup</span>
+                        <span class="d-none d-sm-block">Tidak</span>
                     </button>
                     <button type="submit" class="btn btn-primary ml-1">
                         <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Simpan</span>
+                        <span class="d-none d-sm-block">Ya</span>
                     </button>
                 </div>
             </div>
@@ -279,8 +223,8 @@
 </form>
 @endforeach
 
-@foreach ($pyb as $item)
-<form action="{{url('edit-balita/'. $item->id)}}" method="POST">
+@foreach ($vtmn as $item)
+{{-- <form action="{{url('edit-balita/'. $item->id)}}" method="POST">
   @csrf
   @method('PUT')
   <div class="modal fade" id="exampleModalLong{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -433,65 +377,136 @@
       </div>
   </div>
 </div>
-</form>
+</form> --}}
 @endforeach
 
 @endsection
 
 @section('js')
-<script>
-  // Fungsi untuk menghitung umur dalam bulan
-  function calculateAge() {
-      const dobInput = document.getElementById("tanggal_lahir").value;
-      const umurInput = document.getElementById("umur");
-
-      if (dobInput) {
-          const dob = new Date(dobInput);
-          const today = new Date();
-
-          const yearsDifference = today.getFullYear() - dob.getFullYear();
-          const monthsDifference = today.getMonth() - dob.getMonth();
-
-          // Total bulan
-          let totalMonths = yearsDifference * 12 + monthsDifference;
-
-          // Jika hari ini lebih kecil dari hari lahir, kurangi 1 bulan
-          if (today.getDate() < dob.getDate()) {
-              totalMonths -= 1;
-          }
-
-          umurInput.value = totalMonths > 0 ? totalMonths : 0; // Pastikan umur tidak negatif
-      } else {
-          umurInput.value = ""; // Kosongkan jika tanggal lahir belum diisi
-      }
-  }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-  // Fungsi untuk menghitung umur dalam bulan
-  function calculateAge1() {
-      const dobInput = document.getElementById("a").value;
-      const umurInput = document.getElementById("b");
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('#multiple').select2({dropdownParent: $("#exampleModalLong"),
+        width: '100%'
+    });
 
-      if (dobInput) {
-          const dob = new Date(dobInput);
-          const today = new Date();
+        $('#id').select2({dropdownParent: $("#exampleModalLong"),
+        width: '100%'
+    });
+    
+    $('#id').on('change', function() {
+    const id = $(this).val();
 
-          const yearsDifference = today.getFullYear() - dob.getFullYear();
-          const monthsDifference = today.getMonth() - dob.getMonth();
+    if (id) {
+        $.ajax({
+            url: "{{ route('fetc.detail') }}",
+            method: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: id
+            },
+            success: function(data) {
+                // Format tanggal ke format Indonesia
+                const formatTanggal = (tanggal) => {
+                    const bulanIndonesia = [
+                        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                    ];
+                    const dateObj = new Date(tanggal);
+                    const tanggalFormatted = dateObj.getDate();
+                    const bulanFormatted = bulanIndonesia[dateObj.getMonth()];
+                    const tahunFormatted = dateObj.getFullYear();
+                    return `${tanggalFormatted} ${bulanFormatted} ${tahunFormatted}`;
+                };
 
-          // Total bulan
-          let totalMonths = yearsDifference * 12 + monthsDifference;
+                // Menghitung umur dalam bulan
+                const calculateUmurInMonths = (tanggalLahir) => {
+                    const today = new Date();
+                    const dob = new Date(tanggalLahir);
+                    const yearsDifference = today.getFullYear() - dob.getFullYear();
+                    const monthsDifference = today.getMonth() - dob.getMonth();
+                    let totalMonths = yearsDifference * 12 + monthsDifference;
 
-          // Jika hari ini lebih kecil dari hari lahir, kurangi 1 bulan
-          if (today.getDate() < dob.getDate()) {
-              totalMonths -= 1;
-          }
+                    // Jika hari ini lebih kecil dari hari lahir, kurangi 1 bulan
+                    if (today.getDate() < dob.getDate()) {
+                        totalMonths -= 1;
+                    }
 
-          umurInput.value = totalMonths > 0 ? totalMonths : 0; // Pastikan umur tidak negatif
-      } else {
-          umurInput.value = ""; // Kosongkan jika tanggal lahir belum diisi
-      }
-  }
+                    return totalMonths > 0 ? totalMonths : 0; // Pastikan umur tidak negatif
+                };
+
+                // Menampilkan data ke form
+                $('#result_id').val(data.id);
+                $('#result_nik_anak').text(data.nik_anak);
+                $('#result_nama_anak').text(data.nama_anak);
+                $('#result_jk').text(data.jk);
+                $('#result_tanggal').text(formatTanggal(data.ttl));
+                $('#result_tanggal1').val(formatTanggal(data.ttl));
+                $('#result_nama_ayah').text(data.nama_ayah);
+                $('#result_nama_ibu').text(data.nama_ibu);
+                $('#result_alamat').text(data.alamat);
+
+                // Perhitungan umur otomatis
+                const umurInMonths = calculateUmurInMonths(data.ttl);
+                $('#result_umur').val(`${umurInMonths}`);
+
+                $('#result').show();
+            },
+            error: function() {
+                alert('Data tidak ditemukan');
+                $('#result').hide();
+            }
+        });
+    } else {
+        $('#result').hide();
+    }
+});
+    });
 </script>
+
+
+
+
+@endsection
+
+@section('css')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <style>
+/* Menghilangkan panah pada header tabel */
+         th {
+            cursor: default;
+            background-image: none !important;
+            background-repeat: no-repeat;
+            background-position: center right;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ced4da; /* Border default Bootstrap */
+            border-radius: 0.25rem; /* Radius border Bootstrap */
+            height: calc(2.25rem + 2px); /* Tinggi input Bootstrap */
+            padding: 0.375rem 0.75rem; /* Padding input Bootstrap */
+            background-color: #fff; /* Warna latar belakang */
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 1.50rem; 
+            /* line-height: calc(2.25rem - 2px); */
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%; /* Sesuaikan tinggi panah */
+            right: 0.75rem; /* Sesuaikan posisi panah */
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #6c757d; /* Warna placeholder */
+        }
+
+        
+    </style>
 @endsection

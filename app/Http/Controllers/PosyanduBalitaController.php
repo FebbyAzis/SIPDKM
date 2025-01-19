@@ -4,19 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PosyanduBalita;
+use App\Models\Penimbangan;
+use App\Models\Imunisasi;
+use App\Models\Vitamin;
+use App\Models\Users;
+use Illuminate\Support\Facades\Auth;
 
 class PosyanduBalitaController extends Controller
 {
     public function index()
     {
-        $pyb =  PosyanduBalita::orderBy('id', 'desc')->get();
+        $user = Auth::user();
+        $users = $user->posyandu;
+        
+        $pyb =  PosyanduBalita::where('posyandu_id', $users)->orderBy('id', 'desc')->get();
 
-        return view('posyandu_balita.index', compact('pyb'));
+        return view('posyandu_balita.index', compact('pyb', 'user', 'users'));
     }
 
     public function tambah_balita(Request $request)
     {
         $save = new PosyanduBalita;
+        $save->posyandu_id = $request->posyandu_id;
         $save->nik_anak = $request->nik_anak; 
         $save->no_kk = $request->no_kk; 
         $save->nama_anak = $request->nama_anak; 
@@ -41,6 +50,7 @@ class PosyanduBalitaController extends Controller
     {
 
         PosyanduBalita::where('id', $id)->update([
+            'posyandu_id' => $request->posyandu_id,
             'nik_anak' => $request->nik_anak,
             'no_kk' => $request->no_kk,
             'nama_anak' => $request->nama_anak,
@@ -66,5 +76,25 @@ class PosyanduBalitaController extends Controller
     {
         $pyb = PosyanduBalita::where('id', $id)->delete();
         return redirect()->back()->with('Successss', 'Data berhasil dihapus!');
+    }
+
+    public function detail ($id)
+    {
+        $pyb = PosyanduBalita::find($id);
+        $tmbng = Penimbangan::where('data_bayi_balita_id', $id)->orderBy('id', 'desc')->get();
+        $imun = Imunisasi::where('data_bayi_balita_id', $id)->orderBy('id', 'desc')->get();
+        $vtmn = Vitamin::where('data_bayi_balita_id', $id)->orderBy('id', 'desc')->get();
+        return view('posyandu_balita.detail', compact('pyb', 'tmbng', 'imun', 'vtmn'));
+    }
+
+    public function cetak($id)
+    {
+        $user = Auth::user();
+        $users = $user->posyandu;
+        $pyb = PosyanduBalita::find($id);
+        $tmbng = Penimbangan::where('data_bayi_balita_id', $id)->orderBy('id', 'desc')->get();
+        $imun = Imunisasi::where('data_bayi_balita_id', $id)->orderBy('id', 'desc')->get();
+        $vtmn = Vitamin::where('data_bayi_balita_id', $id)->orderBy('id', 'desc')->get();
+        return view('posyandu_balita.cetak', compact('user', 'users', 'pyb', 'tmbng', 'imun', 'vtmn'));
     }
 }
