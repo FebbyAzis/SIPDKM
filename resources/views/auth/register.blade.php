@@ -69,10 +69,10 @@
                                     <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required>
                                 </div>
                             </div>
-                            <input type="hidden" name="role" value="3">
+                            <input type="hidden" name="role" value="2">
                         </diV>
 
-                                <a href="auth-login.html">Have an account? Login</a>
+                                <a href="{{url('/login')}}">Have an account? Login</a>
                         <div class="clearfix">
                             <button class="btn btn-primary float-right" type="submit">Submit</button>
                         </div>

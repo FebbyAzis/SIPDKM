@@ -80,12 +80,12 @@
                                     
                                     <td>
                                      
-                                      {{-- <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
-                                        <i data-feather="edit" width="30" class="mb-1"></i>
-                                      </button> --}}
-                                      <button class="btn btn-sm btn-danger m-1" data-toggle="modal" data-target="#default{{$item->id}}">
-                                        <i data-feather="trash" width="30" class="mb-1"></i>
-                                      </button>
+                                      <a href="" class="m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
+                                        <i class="fas fa-edit"></i>
+                                      </a>
+                                      <a href="" class="m-1" data-toggle="modal" data-target="#default{{$item->id}}">
+                                        <i class="fas fa-trash text-danger"></i>
+                                      </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -207,7 +207,7 @@
   </form>
 
   @foreach ($tmbng as $item)
-<form action="{{url('hapus-vitamin/'. $item->id)}}" method="POST">
+<form action="{{url('hapus-penimbangan/'. $item->id)}}" method="POST">
     @csrf
     @method('DELETE')
     <div class="modal fade text-left" id="default{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
@@ -215,14 +215,14 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Hapus Data Vitamin</h5>
+                    <h5 class="modal-title" id="myModalLabel1">Hapus Data Penimbangan</h5>
                     <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
                         <i data-feather="x"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p>
-                    Apakah anda yakin ingin menghapus data vitamin bayi/balita <b>{{$item->data_bayi_balita->nama_anak}}</b>?
+                    Apakah anda yakin ingin menghapus data penimbangan bayi/balita <b>{{$item->data_bayi_balita->nama_anak}}</b>?
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -242,7 +242,7 @@
 @endforeach
 
 @foreach ($tmbng as $item)
-{{-- <form action="{{url('edit-balita/'. $item->id)}}" method="POST">
+<form action="{{url('edit-penimbangan/'. $item->id)}}" method="POST">
   @csrf
   @method('PUT')
   <div class="modal fade" id="exampleModalLong{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -250,134 +250,71 @@
   <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Form Edit Data Bayi/Balita</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">Form Edit Data Penimbangan</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <i data-feather="x"></i>
               </button>
           </div>
           <div class="modal-body">
             <div class="row">
+          
               <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="basicInput">Nik Anak</label>
-                  <input type="text" class="form-control" id="basicInput" name="nik_anak"
-                      placeholder="Masukan Nik Anak" value="{{$item->nik_anak}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">No KK</label>
-                  <input type="text" class="form-control" id="basicInput" name="no_kk"
-                      placeholder="Masukan No KK" value="{{$item->no_kk}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Nama Anak</label>
-                  <input type="text" class="form-control" id="basicInput" name="nama_anak"
-                      placeholder="Masukan Nama Anak" value="{{$item->nama_anak}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Nama Ibu</label>
-                  <input type="text" class="form-control" id="basicInput" name="nama_ibu"
-                      placeholder="Masukan Nama Ibu" value="{{$item->nama_ibu}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Nama Ayah</label>
-                  <input type="text" class="form-control" id="basicInput" name="nama_ayah"
-                      placeholder="Masukan Nama Ayah" value="{{$item->nama_ayah}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Anak Ke-</label>
-                  <input type="text" class="form-control" id="basicInput" name="anak_ke"
-                      placeholder="Masukan Anak Ke-" value="{{$item->anak_ke}}" required>
-              </div>
-              <div class="form-group">
-                <label for="basicInput" class="mb-2">Jenis Kelamin</label>
-                <div class="row">
-                    <div class="col-sm-6">
-                      @if ($item->jk == "Laki-laki")
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Laki-laki"
-                            id="flexRadioDefault1" checked required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Laki-laki
-                        </label>
-                    </div>
-                      @else
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Laki-laki"
-                            id="flexRadioDefault1" required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Laki-laki
-                        </label>
-                    </div>  
-                      @endif
-                      @if ($item->jk == "Perempuan")
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Perempuan"
-                            id="flexRadioDefault1" checked required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Perempuan
-                        </label>
-                    </div>
-                      @else
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Perempuan"
-                            id="flexRadioDefault1" required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Perempuan
-                        </label>
-                    </div>  
-                      @endif
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            <hr>
+                  <h5 class="text-center">Data Anak</h5>
+              <hr>
+              
+                  
+                  <p><strong>Nik Anak :</strong><br><span>{{$item->data_bayi_balita->nik_anak}}</span></p>
+                  <p><strong>Nama Anak :</strong><br><span>{{$item->data_bayi_balita->nama_anak}}</span></p>
+                  <p><strong>Jenis Kelamin :</strong><br><span>{{$item->data_bayi_balita->jk}}</span></p>
+                  <p><strong>Tanggal Lahir :</strong><br><span>{{date("d/M/Y", strtotime($item->data_bayi_balita->ttl));}}</span></p>
+                  <p><strong>Nama Ayah :</strong><br><span>{{$item->data_bayi_balita->nama_ayah}}</span></p>
+                  <p><strong>Nama Ibu :</strong><br><span>{{$item->data_bayi_balita->nama_ibu}}</span></p>
+                  <p><strong>Alamat :</strong><br><span>{{$item->data_bayi_balita->alamat}}</span></p>
+                
+           
             </div>
 
               <div class="col-sm-6">
+                  <h5 class="text-center">Data Penimbangan</h5>
                 <div class="form-group">
-                  <label for="basicInput">Tanggal Lahir</label>
-                  <input type="date" class="form-control" id="a" name="ttl" onchange="calculateAge1()"
-                      placeholder="Masukan Tanggal Lahir" value="{{$item->ttl}}" required>
+                  <label for="basicInput">Tanggal Penimbangan</label>
+                  <input type="date" class="form-control" id="" name="tanggal" value="{{$item->tanggal}}"
+                      placeholder="Masukan Tanggal Lahir" required>
               </div>
               <div class="form-group">
-                  <label for="basicInput">Umur (Dalam Bulan)</label>
-                  <input type="text" class="form-control" id="b" name="umur"
-                  placeholder="Otomatis Muncul" value="{{$item->umur}}" required readonly>
+                  <label for="basicInput">Umur (Bulan)</label>
+                  <input type="number" class="form-control" id="a" value="{{$item->umur}}" name="umur"
+                  placeholder="Otomatis Muncul" required readonly>
               </div>
               <div class="form-group">
                   <label for="basicInput">Berat Badan (Kg)</label>
-                  <input type="text" class="form-control" id="basicInput" name="berat_badan"
-                      placeholder="Masukan Angka Saja" value="{{$item->berat_badan}}" required>
+                  <input type="number" step="0.01" class="form-control" id="b" name="berat_badan"
+                  value="{{$item->berat_badan}}" placeholder="Masukan Berat Badan" required>
               </div>
               <div class="form-group">
-                  <label for="basicInput">Panjang Badan (Cm)</label>
-                  <input type="text" class="form-control" id="basicInput" name="panjang_badan"
-                      placeholder="Masukan Angka Saja" value="{{$item->panjang_badan}}" required>
+                  <label for="basicInput">Status Gizi</label>
+                  <input type="text" class="form-control" id="c" name="status_gizi1" value="{{$item->status_gizi}}"
+                  placeholder="Otomatis Muncul" required readonly>
               </div>
-              <div class="form-group">
-                  <label for="basicInput">Lingkar Lengan (Cm)</label>
-                  <input type="text" class="form-control" id="basicInput" name="lingkar_lengan"
-                      placeholder="Masukan Angka Saja" value="{{$item->lingkar_lengan}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Lingkar Kepala (Cm)</label>
-                  <input type="text" class="form-control" id="basicInput" name="lingkar_kepala"
-                      placeholder="Masukan Angka Saja" value="{{$item->lingkar_kepala}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Alamat</label>
-                  <textarea type="text" class="form-control" id="basicInput" name="alamat"
-                      placeholder="Masukan Alamat" required>{{$item->alamat}}</textarea>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">No HP Orang Tua</label>
-                  <input type="text" class="form-control" id="basicInput" name="no_hp_ortu"
-                      placeholder="Masukan No HP Orang Tua" value="{{$item->no_hp_ortu}}" required>
-              </div>
+              <fieldset class="form-group">
+                      <label for="basicInput">Keterangan</label>
+                      <select class="form-select" name="keterangan" id="" required>
+                          <option value="{{$item->keterangan}}">{{$item->keterangan}}</option>
+                          <option value="N">N</option>
+                          <option value="T">T</option>
+                          <option value="D">D</option>
+                          <option value="I">I</option>
+                          
+                      </select>
+                  </fieldset>
+                  <div class="form-group">
+                      <label for="basicInput">Saran</label>
+                      <input type="text" class="form-control" id="" name="saran" value="{{$item->saran}}"
+                      placeholder="Masukan Saran" required>
+                  </div>
               </div>
             </div>
-            
+            <input type="hidden" name="posyandu_id" value="{{$users}}">
 
 
           </div>
@@ -395,7 +332,7 @@
       </div>
   </div>
 </div>
-</form> --}}
+</form>
 @endforeach
 
 @endsection
@@ -493,6 +430,27 @@ $('.umur, #berat_badan').on('input', function () {
                     success: function (response) {
                         if (response.status_gizi) {
                             $('#status_gizi').val(response.status_gizi);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $('#a, #b').on('input', function () {
+            var umur = $('#a').val();
+            var berat_badan = $('#b').val();
+
+            if (umur && berat_badan) {
+                $.ajax({
+                    url: "{{ route('calculateGizi') }}",
+                    type: "GET",
+                    data: { umur: umur, berat_badan: berat_badan },
+                    success: function (response) {
+                        if (response.status_gizi) {
+                            $('#c').val(response.status_gizi);
                         }
                     },
                     error: function (xhr) {

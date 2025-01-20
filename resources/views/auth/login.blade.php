@@ -60,7 +60,8 @@
                             </div>
                         </div>
 
-                        <br>
+                        
+                        <a href="{{url('/register')}}">Don't have an account? Register</a>
                         <div class="clearfix">
                             <button class="btn btn-primary float-right" type="submit">Submit</button>
                         </div>

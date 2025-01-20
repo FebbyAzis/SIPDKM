@@ -75,12 +75,12 @@
                                     
                                     <td>
                                      
-                                      {{-- <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
-                                        <i data-feather="edit" width="30" class="mb-1"></i>
-                                      </button> --}}
-                                      <button class="btn btn-sm btn-danger m-1" data-toggle="modal" data-target="#default{{$item->id}}">
-                                        <i data-feather="trash" width="30" class="mb-1"></i>
-                                      </button>
+                                      {{-- <a href="" class="m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
+                                        <i class="fas fa-edit"></i>
+                                      </a> --}}
+                                      <a href="" class="m-1" data-toggle="modal" data-target="#default{{$item->id}}">
+                                        <i class="fas fa-trash text-danger"></i>
+                                      </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -118,15 +118,7 @@
                                 @endforeach
                             </select>
                         </fieldset>
-                        {{-- <fieldset class="form-group">
-                            <label for="basicInput">Nama Ibu</label>
-                            <select class="form-select" id="nama_ibu">
-                                <option>Masukan Nama Ibu</option>
-                                @foreach ($py as $item)
-                                <option>{{$item->nama_ibu}}</option>
-                                @endforeach
-                            </select>
-                        </fieldset> --}}
+                        
                     <hr>
                     <div id="result" style="margin-top: 20px; display: none;">
                         <input type="hidden" name="data_bayi_balita_id" id="result_id"></p>
@@ -240,7 +232,7 @@
 @endforeach
 
 @foreach ($imun as $item)
-{{-- <form action="{{url('edit-balita/'. $item->id)}}" method="POST">
+<form action="{{url('edit-imunisasi/'. $item->id)}}" method="POST">
   @csrf
   @method('PUT')
   <div class="modal fade" id="exampleModalLong{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -255,132 +247,71 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="basicInput">Nik Anak</label>
-                  <input type="text" class="form-control" id="basicInput" name="nik_anak"
-                      placeholder="Masukan Nik Anak" value="{{$item->nik_anak}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">No KK</label>
-                  <input type="text" class="form-control" id="basicInput" name="no_kk"
-                      placeholder="Masukan No KK" value="{{$item->no_kk}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Nama Anak</label>
-                  <input type="text" class="form-control" id="basicInput" name="nama_anak"
-                      placeholder="Masukan Nama Anak" value="{{$item->nama_anak}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Nama Ibu</label>
-                  <input type="text" class="form-control" id="basicInput" name="nama_ibu"
-                      placeholder="Masukan Nama Ibu" value="{{$item->nama_ibu}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Nama Ayah</label>
-                  <input type="text" class="form-control" id="basicInput" name="nama_ayah"
-                      placeholder="Masukan Nama Ayah" value="{{$item->nama_ayah}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Anak Ke-</label>
-                  <input type="text" class="form-control" id="basicInput" name="anak_ke"
-                      placeholder="Masukan Anak Ke-" value="{{$item->anak_ke}}" required>
-              </div>
-              <div class="form-group">
-                <label for="basicInput" class="mb-2">Jenis Kelamin</label>
-                <div class="row">
-                    <div class="col-sm-6">
-                      @if ($item->jk == "Laki-laki")
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Laki-laki"
-                            id="flexRadioDefault1" checked required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Laki-laki
-                        </label>
-                    </div>
-                      @else
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Laki-laki"
-                            id="flexRadioDefault1" required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Laki-laki
-                        </label>
-                    </div>  
-                      @endif
-                      @if ($item->jk == "Perempuan")
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Perempuan"
-                            id="flexRadioDefault1" checked required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Perempuan
-                        </label>
-                    </div>
-                      @else
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jk" value="Perempuan"
-                            id="flexRadioDefault1" required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Perempuan
-                        </label>
-                    </div>  
-                      @endif
-                        
-                    </div>
+          
+                <div class="col-sm-6">
+                    <h5 class="text-center">Data Anak</h5>
+                <hr>
+                
                     
-                </div>
-            </div>
-            <hr>
-            </div>
-
+                    <p><strong>Nik Anak :</strong><br><span>{{$item->data_bayi_balita->nik_anak}}</span></p>
+                    <p><strong>Nama Anak :</strong><br><span>{{$item->data_bayi_balita->nama_anak}}</span></p>
+                    <p><strong>Jenis Kelamin :</strong><br><span>{{$item->data_bayi_balita->jk}}</span></p>
+                    <p><strong>Tanggal Lahir :</strong><br><span>{{date("d/M/Y", strtotime($item->data_bayi_balita->ttl));}}</span></p>
+                    <p><strong>Nama Ayah :</strong><br><span>{{$item->data_bayi_balita->nama_ayah}}</span></p>
+                    <p><strong>Nama Ibu :</strong><br><span>{{$item->data_bayi_balita->nama_ibu}}</span></p>
+                    <p><strong>Alamat :</strong><br><span>{{$item->data_bayi_balita->alamat}}</span></p>
+                  
+             
+              </div>
+  
               <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="basicInput">Tanggal Lahir</label>
-                  <input type="date" class="form-control" id="a" name="ttl" onchange="calculateAge1()"
-                      placeholder="Masukan Tanggal Lahir" value="{{$item->ttl}}" required>
-              </div>
+                <h5 class="text-center">Data Imunisasi</h5>
               <div class="form-group">
-                  <label for="basicInput">Umur (Dalam Bulan)</label>
-                  <input type="text" class="form-control" id="b" name="umur"
-                  placeholder="Otomatis Muncul" value="{{$item->umur}}" required readonly>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Berat Badan (Kg)</label>
-                  <input type="text" class="form-control" id="basicInput" name="berat_badan"
-                      placeholder="Masukan Angka Saja" value="{{$item->berat_badan}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Panjang Badan (Cm)</label>
-                  <input type="text" class="form-control" id="basicInput" name="panjang_badan"
-                      placeholder="Masukan Angka Saja" value="{{$item->panjang_badan}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Lingkar Lengan (Cm)</label>
-                  <input type="text" class="form-control" id="basicInput" name="lingkar_lengan"
-                      placeholder="Masukan Angka Saja" value="{{$item->lingkar_lengan}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Lingkar Kepala (Cm)</label>
-                  <input type="text" class="form-control" id="basicInput" name="lingkar_kepala"
-                      placeholder="Masukan Angka Saja" value="{{$item->lingkar_kepala}}" required>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">Alamat</label>
-                  <textarea type="text" class="form-control" id="basicInput" name="alamat"
-                      placeholder="Masukan Alamat" required>{{$item->alamat}}</textarea>
-              </div>
-              <div class="form-group">
-                  <label for="basicInput">No HP Orang Tua</label>
-                  <input type="text" class="form-control" id="basicInput" name="no_hp_ortu"
-                      placeholder="Masukan No HP Orang Tua" value="{{$item->no_hp_ortu}}" required>
-              </div>
-              </div>
+                <label for="basicInput">Tanggal Imunisasi</label>
+                <input type="date" class="form-control" id="" name="tanggal" value="{{$item->tanggal}}"
+                    placeholder="Masukan Tanggal Lahir" required>
             </div>
+            <div class="form-group">
+                <label for="basicInput">Umur (Dalam Bulan)</label>
+                <input type="text" class="form-control" id="result_umur" name="umur" value="{{$item->umur}}"
+                placeholder="Otomatis Muncul" required readonly>
+            </div>
+            <fieldset class="form-group">
+                    <label for="basicInput">Jenis Imunisasi</label>
+                    <select class="multiple form-select" name="jenis_imunisasi[]" id="" multiple required>
+                        <option value="Hepatitis B (HB-0)">{{$item->jenis_imunisasi}}</option>
+                        <option value="Hepatitis B (HB-0)">Hepatitis B (HB-0)</option>
+                        <option value="Polio Tetes 1 (OPV 1)">Polio Tetes 1 (OPV 1)</option>
+                        <option value="BCG">BCG</option>
+                        <option value="DPT-HB-Hib 1">DPT-HB-Hib 1</option>
+                        <option value="Polio Tetes 2 (OPV 2)">Polio Tetes 2 (OPV 2)</option>
+                        <option value="PCV 1">PCV 1</option>
+                        <option value="RV 1">RV 1</option>
+                        <option value="DPT-HB-Hib 2">DPT-HB-Hib 2</option>
+                        <option value="Polio Tetes 3 (OPV 3)">Polio Tetes 3 (OPV 3)</option>
+                        <option value="PCV 2">PCV 2</option>
+                        <option value="RV 2">RV 2</option>
+                        <option value="DPT-HB-Hib 3">DPT-HB-Hib 3</option>
+                        <option value="Polio Tetes 4 (OPV 4)">Polio Tetes 4 (OPV 4)</option>
+                        <option value="Polio Suntik 1 (IPV 1)">Polio Suntik 1 (IPV 1)</option>
+                        <option value="RV 3">RV 3</option>
+                        <option value="Campak Rubela 1">Campak Rubela 1</option>
+                        <option value="Polio Suntik 2 (IPV 2)">Polio Suntik 2 (IPV 2)</option>
+                        <option value="JE*">JE*</option>
+                        <option value="PCV 3">PCV 3</option>
+                        <option value="DPT-HB-Hib 4">DPT-HB-Hib 4</option>
+                        <option value="Campak Rubela 2">Campak Rubela 2</option>
+                       
+                    </select>
+                </fieldset>
+            </div>
+              </div>
             
 
 
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-danger">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
                   <i class="bx bx-x d-block d-sm-none"></i>
                   <span class="d-none d-sm-block">Tutup</span>
               </button>
@@ -393,7 +324,7 @@
       </div>
   </div>
 </div>
-</form> --}}
+</form>
 @endforeach
 
 @endsection
@@ -405,6 +336,10 @@
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('#multiple').select2({dropdownParent: $("#exampleModalLong"),
+        width: '100%'
+    });
+
+    $('.multiple').select2({dropdownParent: $("#exampleModalLong"),
         width: '100%'
     });
 

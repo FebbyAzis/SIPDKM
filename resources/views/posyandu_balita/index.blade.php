@@ -83,22 +83,22 @@
                                     <td>{{ $item->anak_ke }}</td>
                                     <td>{{ $item->jk }}</td>
                                     <td>{{date("d/M/Y", strtotime($item->ttl));}}</td>
-                                    <td>{{ $item->umur }} Bulan</td>
-                                    <td>{{ $item->berat_badan }} Kg</td>
-                                    <td>{{ $item->panjang_badan }} Cm</td>
-                                    <td>{{ $item->lingkar_lengan }} Cm</td>
-                                    <td>{{ $item->lingkar_kepala }} Cm</td>
+                                    <td>{{ $item->umur }} bln</td>
+                                    <td>{{ $item->berat_badan }} kg</td>
+                                    <td>{{ $item->panjang_badan }} cm</td>
+                                    <td>{{ $item->lingkar_lengan }} cm</td>
+                                    <td>{{ $item->lingkar_kepala }} cm</td>
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->no_hp_ortu }}</td>
                                     <td>
                                       
-                                      <a href="{{url('detail-data-bayi-balita/'. $item->id)}}" class="btn btn-sm btn-success m-1"><i data-feather="eye" width="30" class="mb-1"></i></a>
-                                      <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
-                                        <i data-feather="edit" width="30" class="mb-1"></i>
-                                      </button>
-                                      <button class="btn btn-sm btn-danger m-1" data-toggle="modal" data-target="#default{{$item->id}}">
-                                        <i data-feather="trash" width="30" class="mb-1"></i>
-                                      </button>
+                                      <a href="{{url('detail-data-bayi-balita/'. $item->id)}}" class="m-1"><i class="fas fa-eye text-success"></i></a>
+                                      <a href="" class="m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
+                                        <i class="fas fa-edit"></i>
+                                      </a>
+                                      <a href="" class="m-1" data-toggle="modal" data-target="#default{{$item->id}}">
+                                        <i class="fas fa-trash text-danger"></i>
+                                      </a>
                                     </td>
                                 </tr>
                             @endforeach

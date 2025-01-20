@@ -1,153 +1,122 @@
 @extends('layout.app')
 @section('content')
-    <div class="main-content container-fluid">
+   @if ($users == 1)
+   <div class="main-content container-fluid">
 
-        <div class="page-title">
-          <div class="row">
-            <div class="col-sm-12">
-              <h3>Data Pengguna</h3>
-              <p class="text-subtitle text-muted">Anda dapat mengelola data pengguna sistem pada halaman ini.</p>
-            
-          </div>
-            
-        </div>
-        </div>
-        @if (session('Success'))
-        <div class="alert alert-light-success alert-dismissible show fade">
-          <strong>Success!</strong> {{ session('Success') }}.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        @endif
-        @if (session('Successs'))
-        <div class="alert alert-light-success alert-dismissible show fade">
-          <strong>Success!</strong> {{ session('Successs') }}.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        @endif
-        @if (session('Successss'))
-        <div class="alert alert-light-success alert-dismissible show fade">
-          <strong>Success!</strong> {{ session('Successss') }}.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        @endif
-        <div class="card">
-            {{-- <div class="card-header">
-          <h4 class="card-title">Tabel Data Posyandu Balita</h4>
-        </div> --}}
-            <div class="card-content">
-               
-                <!-- table hover -->
-                <div class="table-responsive mt-2">
-                    <table class="table table-striped table-hover" id="table1">
-                        <thead>
+    <div class="page-title">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Data Pengguna</h3>
+          <p class="text-subtitle text-muted">Anda dapat mengelola data pengguna sistem pada halaman ini.</p>
+        
+      </div>
+        
+    </div>
+    </div>
+    @if (session('Success'))
+    <div class="alert alert-light-success alert-dismissible show fade">
+      <strong>Success!</strong> {{ session('Success') }}.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    @endif
+    @if (session('Successs'))
+    <div class="alert alert-light-success alert-dismissible show fade">
+      <strong>Success!</strong> {{ session('Successs') }}.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    @endif
+    @if (session('Successss'))
+    <div class="alert alert-light-success alert-dismissible show fade">
+      <strong>Success!</strong> {{ session('Successss') }}.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    @endif
+    <div class="card">
+        {{-- <div class="card-header">
+      <h4 class="card-title">Tabel Data Posyandu Balita</h4>
+    </div> --}}
+        <div class="card-content">
+           
+            <!-- table hover -->
+            <div class="table-responsive mt-2">
+                <table class="table table-striped table-hover" id="table1">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama/Username</th>
+                            <th>Email</th>
+                      
+                            <th>Jabatan</th>
+                            <th>Akses</th>
+                        
+                           
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($user as $no => $item)
                             <tr>
-                                <th>No</th>
-                                <th>Nama/Username</th>
-                                <th>Email</th>
+                                <td>{{ $no + 1 }}</td>
                           
-                                <th>Jabatan</th>
-                                <th>Akses</th>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
                             
+
+                                @if ($item->role == 1)
+                                    <td>Admin</td>
+                                @elseif ($item->role == 2)
+                                    <td>Pengurus Posyandu</td>
+                                @else
+                                    <td>Pengguna</td>
+                                @endif
+
+                                @if ($item->posyandu == 1)
+                                    <td>Posyandu Nusa Indah</td>
+                                @elseif ($item->posyandu == 2)
+                                    <td>Posyandu Dahlia</td>
+                                @elseif ($item->posyandu == 3)
+                                    <td>Posyandu Mawar Merah</td>
+                                @elseif ($item->posyandu == 4)
+                                    <td>Posyandu Melati Putih</td>
+                                @elseif ($item->posyandu == 5)
+                                    <td>Posyandu Aster</td>
+                                @elseif ($item->posyandu == 6)
+                                    <td>Posyandu Anggrek</td>
+                                @elseif ($item->posyandu == 7)
+                                    <td>Administrator</td>
+                                @else
+                                    <td>Orang Tua/Wali</td>
+                                @endif
                                
-                                <th>Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($user as $no => $item)
-                                <tr>
-                                    <td>{{ $no + 1 }}</td>
-                              
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
                                 
-
-                                    @if ($item->role == 1)
-                                        <td>Admin</td>
-                                    @elseif ($item->role == 2)
-                                        <td>Pengurus Posyandu</td>
-                                    @else
-                                        <td>Pengguna</td>
-                                    @endif
-
-                                    @if ($item->posyandu == 1)
-                                        <td>Posyandu Nusa Indah</td>
-                                    @elseif ($item->posyandu == 2)
-                                        <td>Posyandu Dahlia</td>
-                                    @elseif ($item->posyandu == 3)
-                                        <td>Posyandu Mawar Merah</td>
-                                    @elseif ($item->posyandu == 4)
-                                        <td>Posyandu Melati Putih</td>
-                                    @elseif ($item->posyandu == 5)
-                                        <td>Posyandu Aster</td>
-                                    @elseif ($item->posyandu == 6)
-                                        <td>Posyandu Anggrek</td>
-                                    @elseif ($item->posyandu == 7)
-                                        <td>Administrator</td>
-                                    @else
-                                        <td>Orang Tua/Wali</td>
-                                    @endif
-                                   
-                                    
-                                    <td>
-                                     
-                                      <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
-                                        <i data-feather="edit" width="30" class="mb-1"></i>
-                                      </button>
-                                      {{-- <button class="btn btn-sm btn-danger m-1" data-toggle="modal" data-target="#default{{$item->id}}">
-                                        <i data-feather="trash" width="30" class="mb-1"></i>
-                                      </button> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                <td>
+                                 
+                                  <button class="btn btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModalLong{{$item->id}}">
+                                    <i data-feather="edit" width="30" class="mb-1"></i>
+                                  </button>
+                                  {{-- <button class="btn btn-sm btn-danger m-1" data-toggle="modal" data-target="#default{{$item->id}}">
+                                    <i data-feather="trash" width="30" class="mb-1"></i>
+                                  </button> --}}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
+   @endif
 
 
-  {{-- @foreach ($user as $item)
-<form action="{{url('hapus-vitamin/'. $item->id)}}" method="POST">
-    @csrf
-    @method('DELETE')
-    <div class="modal fade text-left" id="default{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-    aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Hapus Data Vitamin</h5>
-                    <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                    Apakah anda yakin ingin menghapus data vitamin bayi/balita <b></b>?
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Tidak</span>
-                    </button>
-                    <button type="submit" class="btn btn-primary ml-1">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Ya</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-@endforeach --}}
+
 
 @foreach ($user as $item)
 <form action="{{url('edit-pengguna/'. $item->id)}}" method="POST">

@@ -50,7 +50,7 @@ class PosyanduBalitaController extends Controller
     {
 
         PosyanduBalita::where('id', $id)->update([
-            'posyandu_id' => $request->posyandu_id,
+           
             'nik_anak' => $request->nik_anak,
             'no_kk' => $request->no_kk,
             'nama_anak' => $request->nama_anak,
